@@ -11,6 +11,15 @@ module.exports = {
             template: 'src/index.html',
         }),
     ],
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: ['style-loader', 'css-loader']
+        }, {
+            test: /\.(png|gif|jpg|jpeg|svg|xml|json)$/,
+            use: ['url-loader']
+        }]
+    },
     output: {
         filename: '[name].bundle.js',
         path: path.resolve(__dirname, 'dist'),
