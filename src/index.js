@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import "./css/style.css"
 
 class threeElement {
@@ -7,6 +8,8 @@ class threeElement {
         this.camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 10000);
         this.light = new THREE.AmbientLight(0xFFFFFF, 1.0);
         this.renderer = new THREE.WebGLRenderer();
+
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
     }
 
     init() {
@@ -15,6 +18,12 @@ class threeElement {
 
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(this.renderer.domElement);
+
+        this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.target.set(0, 0, 0);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.5;
+        this.controls.enableZoom = false;
     }
 }
 
@@ -53,5 +62,6 @@ function init() {
 function animate() {
     target.rotate();
 	three.renderer.render( three.scene, three.camera );
+    three.controls.update();
 	requestAnimationFrame( animate );
 }
